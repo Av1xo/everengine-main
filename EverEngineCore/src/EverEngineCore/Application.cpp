@@ -1,14 +1,20 @@
-#include <iostream>
-
-#include "EverEngineCore/Utils/test.hpp"
+#include "EverEngineCore/Application.hpp"
 #include <GLFW/glfw3.h>
 
-namespace EverEngine {
-
-    int checkGLFW()
+namespace EverEngine
+{
+    Application::Application()
     {
-        std::cout << "Hello from EverEngineCore" << std::endl;
 
+    }
+
+    Application::~Application()
+    {
+
+    }
+
+    int Application::start(unsigned int window_width, unsigned int window_height, const char* title)
+    {
         GLFWwindow* window;
 
         /* Initialize the library */
@@ -16,7 +22,7 @@ namespace EverEngine {
             return -1;
 
         /* Create a windowed mode window and its OpenGL context */
-        window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+        window = glfwCreateWindow(window_width, window_height, title, NULL, NULL);
         if (!window)
         {
             glfwTerminate();
@@ -37,10 +43,11 @@ namespace EverEngine {
 
             /* Poll for and process events */
             glfwPollEvents();
+
+            on_update();
         }
 
         glfwTerminate();
         return 0;
     }
-
 }

@@ -2,8 +2,17 @@ cmake_minimum_required(VERSION 3.12)
 
 set(ENGINE_PROJECT_NAME EverEngineCore)
 
+set(ENGINE_PUBLIC_INCLUDES 
+    includes/EverEngineCore/Application.hpp
+)
+
+set(ENGINE_PUBLIC_SOURCES
+    src/EverEngineCore/Application.cpp
+)
+
 add_library(${ENGINE_PROJECT_NAME} STATIC
-    src/EverEngineCore/Utils/test.cpp
+    ${ENGINE_PUBLIC_INCLUDES}
+    ${ENGINE_PUBLIC_SOURCES}
 )
 
 target_include_directories(${ENGINE_PROJECT_NAME} PUBLIC
