@@ -10,7 +10,7 @@ public:
 
     virtual void on_update() override 
     {
-        std::cout << "Update frame: " <<  frame++ << std::endl;
+        
     }
 };
 
@@ -24,6 +24,6 @@ int main()
     int returnCode = editor->start(1024, 768, "Test Application class");
 
     std::cin.get();
-    
+
     return returnCode;
 }

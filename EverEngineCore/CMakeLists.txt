@@ -4,6 +4,7 @@ set(ENGINE_PROJECT_NAME EverEngineCore)
 
 set(ENGINE_PUBLIC_INCLUDES 
     includes/EverEngineCore/Application.hpp
+    includes/EverEngineCore/Log.hpp
 )
 
 set(ENGINE_PUBLIC_SOURCES
@@ -27,3 +28,6 @@ set_target_properties(${ENGINE_PROJECT_NAME} PROPERTIES
 
 add_subdirectory(../external/glfw ${CMAKE_CURRENT_BINARY_DIR}/glfw)
 target_link_libraries(${ENGINE_PROJECT_NAME} PRIVATE glfw)
+
+add_subdirectory(../external/spdlog ${CMAKE_CURRENT_BINARY_DIR}/spdlog)
+target_link_libraries(${ENGINE_PROJECT_NAME} PRIVATE spdlog)
