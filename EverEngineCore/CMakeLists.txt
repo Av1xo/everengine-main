@@ -15,3 +15,6 @@ target_compile_features(${ENGINE_PROJECT_NAME} PUBLIC cxx_std_20)
 set_target_properties(${ENGINE_PROJECT_NAME} PROPERTIES
     ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/
 )
+
+add_subdirectory(../external/glfw ${CMAKE_CURRENT_BINARY_DIR}/glfw)
+target_link_libraries(${ENGINE_PROJECT_NAME} PRIVATE glfw)

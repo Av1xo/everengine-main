@@ -3,7 +3,7 @@
 
 namespace EverEngine {
 
-    void sayHello();
+    int checkGLFW();
 
 }
 

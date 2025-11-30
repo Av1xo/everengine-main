@@ -4,7 +4,7 @@
 
 int main()
 {
-    EverEngine::sayHello();
+    EverEngine::checkGLFW();
     std::cout << "Hello from EverEngineEditor" << std::endl;
 
     std::cin.get();
