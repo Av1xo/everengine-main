@@ -5,6 +5,7 @@ set(ENGINE_PROJECT_NAME EverEngineCore)
 set(ENGINE_PUBLIC_INCLUDES 
     includes/EverEngineCore/Application.hpp
     includes/EverEngineCore/Log.hpp
+    includes/EverEngineCore/Event.hpp
 )
 
 set(ENGINE_PRIVATE_INCLUDES

@@ -1,6 +1,11 @@
 #ifndef WINDOW_HPP
 #define WINDOW_HPP
 
+#include "EverEngineCore/Event.hpp"
+
+#include <string>
+#include <functional>
+
 struct GLFWwindow;
 
 namespace EverEngine {
@@ -8,7 +13,9 @@ namespace EverEngine {
     class Window
     {
     public:
-        Window(const char* title, const unsigned int width,
+        using EventCallbackFn = std::function<void(BaseEvent&)>;
+
+        Window(const std::string& title, const unsigned int width,
             const unsigned int height);
         ~Window();
 
@@ -20,23 +27,30 @@ namespace EverEngine {
         void on_update();
         unsigned int get_width() const 
         {
-            return m_width;
+            return m_data.width;
         }
         unsigned int get_height() const 
         {
-            return m_height;
+            return m_data.height;
         }
 
+        void set_event_callback(const EventCallbackFn& callback);
+
     private:
+        struct WindowData
+        {
+            std::string title;
+            unsigned int width;
+            unsigned int height;
+            EventCallbackFn eventCallbackFn;
+        };
         int init();
         void shutdown();
 
-        GLFWwindow* m_pWindow;
-        const char* m_title;
-        unsigned int m_width;
-        unsigned int m_height;
+        GLFWwindow* m_pWindow = nullptr;
+        WindowData m_data;
     };
-    
+
 }
 
 #endif // !WINDOW_HPP

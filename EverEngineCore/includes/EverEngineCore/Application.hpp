@@ -1,6 +1,8 @@
 #ifndef APPLICATION_HPP
 #define APPLICATION_HPP
 
+#include "EverEngineCore/Event.hpp"
+
 #include <memory>
 
 namespace EverEngine 
@@ -24,6 +26,9 @@ namespace EverEngine
     
     private:
         std::unique_ptr<class Window> m_pWindow;
+
+        EventDispatcher m_event_dispatcher;
+        bool m_bCloseWindow = false;
     };
 
 }
