@@ -1,6 +1,8 @@
 #ifndef APPLICATION_HPP
 #define APPLICATION_HPP
 
+#include <memory>
+
 namespace EverEngine 
 {
     class Application
@@ -19,6 +21,9 @@ namespace EverEngine
         virtual int start(unsigned window_width, unsigned int window_height, const char* title);
 
         virtual void on_update() {};
+    
+    private:
+        std::unique_ptr<class Window> m_pWindow;
     };
 
 }

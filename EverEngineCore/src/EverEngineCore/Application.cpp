@@ -1,5 +1,6 @@
 #include "EverEngineCore/Application.hpp"
 #include "EverEngineCore/Log.hpp"
+#include "EverEngineCore/Window.hpp"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -8,53 +9,21 @@ namespace EverEngine
 {
     Application::Application()
     {
-
+        LOG_INFO("START::APPLICATION");
     }
 
     Application::~Application()
     {
-
+        LOG_INFO("CLOSE::APPLICATION");
     }
 
     int Application::start(unsigned int window_width, unsigned int window_height, const char* title)
     {
-        GLFWwindow* window;
-
-        /* Initialize the library */
-        if (!glfwInit())
-            return -1;
-
-        /* Create a windowed mode window and its OpenGL context */
-        window = glfwCreateWindow(window_width, window_height, title, NULL, NULL);
-        if (!window)
-        {
-            glfwTerminate();
-            return -1;
-        }
-
-        /* Make the window's context current */
-        glfwMakeContextCurrent(window);
-
-        if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-        {
-            LOG_CRIT("FAIL::INIT::GLAD");
-            return -1;
-        }
-
-        glClearColor(1.0f, 0.0f, 0.5f, 1);
-
+        m_pWindow = std::make_unique<Window>(title, window_width, window_height);
         /* Loop until the user closes the window */
-        while (!glfwWindowShouldClose(window))
+        while (true)
         {
-            /* Render here */
-            glClear(GL_COLOR_BUFFER_BIT);
-
-            /* Swap front and back buffers */
-            glfwSwapBuffers(window);
-
-            /* Poll for and process events */
-            glfwPollEvents();
-
+            m_pWindow->on_update();
             on_update();
         }
 

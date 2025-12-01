@@ -7,16 +7,26 @@ set(ENGINE_PUBLIC_INCLUDES
     includes/EverEngineCore/Log.hpp
 )
 
-set(ENGINE_PUBLIC_SOURCES
+set(ENGINE_PRIVATE_INCLUDES
+    includes/EverEngineCore/Window.hpp
+)
+
+set(ENGINE_PRIVATE_SOURCES
     src/EverEngineCore/Application.cpp
+    src/EverEngineCore/Window.cpp
 )
 
 add_library(${ENGINE_PROJECT_NAME} STATIC
     ${ENGINE_PUBLIC_INCLUDES}
-    ${ENGINE_PUBLIC_SOURCES}
+    ${ENGINE_PRIVATE_INCLUDES}
+    ${ENGINE_PRIVATE_SOURCES}
 )
 
 target_include_directories(${ENGINE_PROJECT_NAME} PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/includes
+)
+
+target_include_directories(${ENGINE_PROJECT_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/includes
 )
 
