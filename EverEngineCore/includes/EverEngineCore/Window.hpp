@@ -13,7 +13,7 @@ namespace EverEngine {
     class Window
     {
     public:
-        using EventCallbackFn = std::function<void(BaseEvent&)>;
+        using EventCallbackFn = std::function<void(std::unique_ptr<BaseEvent>)>;
 
         Window(const std::string& title, const unsigned int width,
             const unsigned int height);

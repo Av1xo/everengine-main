@@ -64,10 +64,7 @@ namespace EverEngine
                 data.width = width;
                 data.height = height;
 
-                EventWindowResize event(width, height);
-                event.width = width;
-                event.height = height;
-                data.eventCallbackFn(event);
+                data.eventCallbackFn(std::make_unique<EventWindowResize>(width, height));
             }
         );
 
@@ -76,8 +73,7 @@ namespace EverEngine
             {
                 WindowData& data = *static_cast<WindowData*>(glfwGetWindowUserPointer(pWindow));
 
-                EventMouseMoved event(x, y);
-                data.eventCallbackFn(event);
+                data.eventCallbackFn(std::make_unique<EventMouseMoved>(x, y));
             }
         );
 
@@ -85,8 +81,7 @@ namespace EverEngine
             [](GLFWwindow* pWindow){
                 WindowData& data = *static_cast<WindowData*>(glfwGetWindowUserPointer(pWindow));
 
-                EventWindowClose event;
-                data.eventCallbackFn(event);
+                data.eventCallbackFn(std::make_unique<EventWindowClose>());
             }
         );
         return 0;

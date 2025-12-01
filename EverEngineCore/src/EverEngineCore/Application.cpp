@@ -18,7 +18,7 @@ namespace EverEngine
     int Application::start(unsigned int window_width, unsigned int window_height, const char* title)
     {
         m_pWindow = std::make_unique<Window>(title, window_width, window_height);
-        
+
         m_event_dispatcher.add_event_listener<EventMouseMoved>(
             [](EventMouseMoved& event)
             {
@@ -40,14 +40,15 @@ namespace EverEngine
         );
 
         m_pWindow->set_event_callback(
-            [&](BaseEvent& event){
-                m_event_dispatcher.dispatch(event);
+            [&](std::unique_ptr<BaseEvent> event){
+                m_event_dispatcher.post_event(std::move(event));
             }
         );
 
         while (!m_bCloseWindow)
         {
             m_pWindow->on_update();
+            m_event_dispatcher.process_events();
             on_update();
         }
         m_pWindow = nullptr;
