@@ -1,6 +1,6 @@
 #include "EverEngineCore/Application.hpp"
 #include "EverEngineCore/Log.hpp"
-#include "EverEngineCore/Window.hpp"
+#include "Window.hpp"
 #include "EverEngineCore/Event.hpp"
 
 namespace EverEngine
@@ -8,6 +8,7 @@ namespace EverEngine
     Application::Application()
     {
         LOG_INFO("START::APPLICATION");
+
     }
 
     Application::~Application()

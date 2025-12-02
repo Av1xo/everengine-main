@@ -1,16 +1,31 @@
-#include "EverEngineCore/Window.hpp"
+#include "Window.hpp"
 #include "EverEngineCore/Log.hpp"
+#include "Rendering/OpenGL/Shader.hpp"
+#include "Rendering/OpenGL/VertexBuffer.hpp"
+
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-
-
 #include <imgui/imgui.h>
 #include <imgui/backends/imgui_impl_opengl3.h>
+#include <imgui/backends/imgui_impl_glfw.h>
 
 namespace EverEngine
 {
+
+    static std::unique_ptr<Shader> s_shader;
+    static std::unique_ptr<VertexBuffer> s_vbo;
+
+
+    float s_vertices[] = {
+        -0.5f, -0.5f, 0.0f,     1.0f, 0.0f, 0.0f,
+            0.5f, -0.5f, 0.0f,     0.5f, 1.0f, 0.0f,
+            0.0f,  0.5f, 0.0f,     0.0f, 0.0f, 1.0f
+    };
+
+
+#define ENGINE_DEBUG
     static bool s_GLFW_initialised = false;
 
     Window::Window(const std::string& title, const unsigned int width,
@@ -18,10 +33,12 @@ namespace EverEngine
         : m_data({std::move(title), width, height})
     {
         int resultCode = init();
-
+#ifdef ENGINE_DEBUG
         IMGUI_CHECKVERSION();
         ImGui::CreateContext();
         ImGui_ImplOpenGL3_Init();
+        ImGui_ImplGlfw_InitForOpenGL(m_pWindow, true);
+#endif
     }
 
     Window::~Window()
@@ -92,6 +109,27 @@ namespace EverEngine
                 data.eventCallbackFn(std::make_unique<EventWindowClose>());
             }
         );
+
+        glfwSetFramebufferSizeCallback(m_pWindow, 
+            [](GLFWwindow* pWindow, int width, int height)
+            {
+                glViewport(0, 0, width, height);
+            }
+        );
+
+        s_shader = std::make_unique<Shader>(
+            std::unordered_map<unsigned int, const char*>{
+                {GLShaderType::Vertex, "shaders/vertex.vert"},
+                {GLShaderType::Fragment, "shaders/fragment.frag"}
+            }
+        );
+
+        s_vbo = std::make_unique<VertexBuffer>(s_vertices, sizeof(s_vertices), 3, nullptr, 0, BufferUsage::Dynamic);
+
+        VertexLayout layout;
+        layout.push(3, GL_FLOAT); // pos
+        layout.push(3, GL_FLOAT); // color
+        s_vbo->set_layout(layout);
         return 0;
     }
 
@@ -99,24 +137,33 @@ namespace EverEngine
     {
         glfwDestroyWindow(m_pWindow);
         glfwTerminate();
+
     }
 
     void Window::on_update()
     {
-        glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+        glClearColor(m_backgroundColor[0], m_backgroundColor[1], m_backgroundColor[2], m_backgroundColor[3]);
         glClear(GL_COLOR_BUFFER_BIT);
+        s_shader->use();
+        s_vbo->draw();
 
+        
+#ifdef ENGINE_DEBUG
         ImGuiIO& io = ImGui::GetIO();
         io.DisplaySize.x = static_cast<float>(get_width());
         io.DisplaySize.y = static_cast<float>(get_height());
 
         ImGui_ImplOpenGL3_NewFrame();
+        ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
-        ImGui::ShowDemoWindow();
+        ImGui::Begin("BackGroundColorWindow");
+        ImGui::ColorEdit4("Background Color", m_backgroundColor);
+        ImGui::End();
 
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+#endif
 
         glfwSwapBuffers(m_pWindow);
         glfwPollEvents();

@@ -9,12 +9,17 @@ set(ENGINE_PUBLIC_INCLUDES
 )
 
 set(ENGINE_PRIVATE_INCLUDES
-    includes/EverEngineCore/Window.hpp
+    src/EverEngineCore/Window.hpp
+    src/EverEngineCore/Rendering/OpenGL/Shader.hpp
+    src/EverEngineCore/Rendering/OpenGL/VertexBuffer.hpp
+    src/EverEngineCore/Rendering/OpenGL/VertexLayout.hpp
 )
 
 set(ENGINE_PRIVATE_SOURCES
     src/EverEngineCore/Application.cpp
     src/EverEngineCore/Window.cpp
+    src/EverEngineCore/Rendering/OpenGL/Shader.cpp
+    src/EverEngineCore/Rendering/OpenGL/VertexBuffer.cpp
 )
 
 add_library(${ENGINE_PROJECT_NAME} STATIC

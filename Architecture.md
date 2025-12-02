@@ -1,0 +1,423 @@
+# EverEngine Architecture
+
+## 1. System Layer
+- **Hardware Abstraction**
+  - CPU Detection & Features
+  - GPU Detection & Capabilities
+  - Memory Info
+  - Storage Info
+- **Drivers**
+  - Graphics Drivers
+  - Audio Drivers
+  - Input Drivers
+- **Operating System**
+  - Windows / Linux / macOS
+  - Console Platforms (PlayStation, Xbox, Switch)
+  - Mobile (Android, iOS)
+
+## 2. External API / Third-Party Libraries
+- **Graphics**
+  - OpenGL / Vulkan / DirectX 12
+  - Metal (для macOS/iOS)
+- **Audio**
+  - OpenAL
+  - FMOD / Wwise
+- **Physics**
+  - Havok / PhysX / Bullet
+  - Cloth Simulation
+- **General**
+  - Boost (Utility Libraries)
+  - STL (Standard Template Library)
+  - JSON / XML Parsers
+
+## 3. Platform Independence Layer
+- **Platform Detection**
+  - Compile-Time Platform Macros
+  - Runtime Platform Info
+- **File System**
+  - Path Manipulation
+  - File I/O (Sync/Async)
+  - Directory Operations
+  - Archive Support (ZIP, PAK)
+- **Network Transportation**
+  - TCP/IP, UDP
+  - HTTP/HTTPS Client
+  - WebSockets
+- **Multithreading**
+  - Thread Pool
+  - Job System
+  - Atomic Operations
+  - Locks & Mutexes
+  - Parallel For
+- **Input**
+  - Keyboard
+  - Mouse
+  - Gamepad/Controller
+  - Touch Screen
+  - Input Mapping System
+
+## 4. Core Systems
+- **Module System**
+  - Start-Up Manager
+  - Shut-Down Manager
+  - Dependency Resolution
+  - Hot-Reload Support
+- **Assertions & Error Handling**
+  - Debug Assertions
+  - Release Assertions
+  - Stack Trace
+  - Crash Reporter
+- **Unit Testing**
+  - Test Framework
+  - Performance Tests
+  - Integration Tests
+- **Memory Management**
+  - Custom Allocators (Pool, Stack, Heap)
+  - Memory Tracking
+  - Leak Detection
+  - Memory Profiling
+- **Math Library**
+  - Vectors (2D, 3D, 4D)
+  - Matrices (3x3, 4x4)
+  - Quaternions
+  - Transforms
+  - Curves & Splines
+  - Interpolation (Lerp, Slerp, etc.)
+- **Logging System**
+  - Log Levels (Info, Warning, Error, Fatal)
+  - Multiple Output Channels
+  - File Logging
+  - Console Logging
+  - Network Logging
+- **Localisation (i18n)**
+  - String Tables
+  - Language Management
+  - Font Support (Unicode)
+  - Date/Time Formatting
+- **Parsers**
+  - JSON, XML, YAML
+  - Custom Config Formats
+  - Binary Serialization
+- **Profiling**
+  - CPU Profiler
+  - GPU Profiler
+  - Memory Profiler
+  - Frame Time Analysis
+  - Stats Overlay
+- **Configuration System**
+  - Config Files (INI, JSON, etc.)
+  - Command-Line Arguments
+  - Settings Management
+  - Save/Load System
+- **Random Number Generators**
+  - Pseudo-Random (Mersenne Twister, PCG)
+  - Seeded RNG
+  - Noise Functions (Perlin, Simplex)
+- **Object Management**
+  - Object Pool
+  - Handle System
+  - GUID Generation
+  - Reference Counting
+- **Async File System**
+  - Background Loading
+  - Streaming
+  - Priority Queue
+  - Callback System
+
+## 5. Resource Management
+- **Resource Manager**
+  - Asset Database
+  - Reference Counting
+  - Hot-Reload
+  - Streaming
+  - Compression/Decompression
+- **Textures**
+  - 2D Textures
+  - Cube Maps
+  - Texture Arrays
+  - Mipmaps
+  - Format Support (PNG, JPG, DDS, KTX)
+- **Materials**
+  - Shader Assignment
+  - Parameter Management
+  - Texture Binding
+  - Material Instances
+- **3D Models**
+  - Mesh Data (Vertices, Indices)
+  - LOD (Level of Detail)
+  - Import Formats (FBX, OBJ, GLTF)
+  - Mesh Optimization
+- **Skeletons**
+  - Bone Hierarchy
+  - Bind Poses
+  - Skinning Data
+- **Animation**
+  - Animation Clips
+  - Blend Trees
+  - State Machines
+  - IK (Inverse Kinematics)
+  - Animation Events
+  - Root Motion
+- **Collision Meshes**
+  - Simplified Geometry
+  - Convex Hulls
+  - Primitives (Box, Sphere, Capsule)
+- **Fonts**
+  - TrueType / OpenType
+  - Bitmap Fonts
+  - SDF (Signed Distance Field) Fonts
+  - Glyph Atlas
+- **Levels / Scenes**
+  - Scene Serialization
+  - Prefabs
+  - Scene Graph
+  - Streaming Levels
+- **Audio Assets**
+  - WAV, MP3, OGG, FLAC
+  - 3D Audio Data
+  - Music Loops
+  - Sound Banks
+
+## 6. Rendering System
+### Low-Level Renderer
+- **Render Device Interface**
+  - Command Buffers
+  - Render States
+  - Pipeline State Objects
+- **Geometry Renderer**
+  - Vertex Buffers
+  - Index Buffers
+  - Draw Calls
+  - Instancing
+  - Batching
+- **Lighting System**
+  - Directional Lights
+  - Point Lights
+  - Spot Lights
+  - Area Lights
+  - Light Probes
+  - Shadow Mapping (Cascaded, Point, Spot)
+- **Cameras**
+  - Perspective Camera
+  - Orthographic Camera
+  - Camera Controller
+  - Frustum Culling
+  - Viewport Management
+- **Text & Fonts Rendering**
+  - Text Layout
+  - Kerning
+  - Multi-line Support
+  - Rich Text (Color, Style)
+- **Debug Draw**
+  - Lines, Boxes, Spheres
+  - Gizmos
+  - Grid
+  - Collision Shapes Visualization
+
+### High-Level Renderer
+- **Render Pipeline**
+  - Forward Rendering
+  - Deferred Rendering
+  - Forward+ / Clustered
+  - Tile-Based Rendering
+- **Post-Processing**
+  - Bloom
+  - Color Grading
+  - Tone Mapping
+  - Anti-Aliasing (FXAA, TAA, MSAA)
+  - Motion Blur
+  - Depth of Field
+  - Ambient Occlusion (SSAO, HBAO)
+- **Particle Systems**
+  - Emitters
+  - Particle Physics
+  - GPU Particles
+  - Trails
+- **Shader System**
+  - Shader Compilation
+  - Shader Variants
+  - Uber Shaders
+  - Material System
+- **Culling & Optimization**
+  - Frustum Culling
+  - Occlusion Culling
+  - LOD System
+  - Draw Call Optimization
+
+## 7. Physics System
+- **Collision Detection**
+  - Broad Phase (BVH, Octree, Grid)
+  - Narrow Phase (SAT, GJK)
+  - Collision Shapes (Primitives, Meshes)
+  - Triggers
+- **Ray Casting**
+  - Raycasts
+  - Sphere Casts
+  - Box Casts
+  - Shape Casts
+- **Rigid Body Dynamics**
+  - Rigid Bodies (Static, Dynamic, Kinematic)
+  - Mass, Inertia
+  - Velocity, Acceleration
+  - Sleep/Wake System
+- **Forces & Constraints**
+  - Gravity
+  - Impulses
+  - Joints (Hinge, Ball, Fixed, etc.)
+  - Springs
+  - Motors
+- **Advanced Physics**
+  - Soft Bodies
+  - Cloth Simulation
+  - Destruction
+  - Ragdolls
+
+## 8. Gameplay Systems
+### Entity Component System (ECS)
+- **Entity Management**
+  - Entity Creation/Destruction
+  - Entity Hierarchy (Parent/Child)
+  - Entity Queries
+- **Component System**
+  - Component Registry
+  - Component Pools
+  - Component Reflection
+- **System Management**
+  - System Update Order
+  - System Dependencies
+  - Parallel System Execution
+
+### Scene Graph (Alternative to ECS)
+- **Scene Management**
+  - Scene Tree
+  - Node Transforms
+  - Scene Serialization
+  - Multi-Scene Support
+- **Spatial Organization**
+  - Quadtree / Octree
+  - BSP Trees
+  - Portal System
+
+### Scripting Layer
+- **Script Engine**
+  - Lua / Python / C# Integration
+  - Script Hot-Reload
+  - Script Debugging
+- **Script Bindings**
+  - Engine API Exposure
+  - Event Callbacks
+  - Coroutines
+
+## 9. Audio System
+- **Audio Engine**
+  - 2D Audio (UI Sounds, Music)
+  - 3D Audio (Positional, Doppler)
+  - Audio Mixer
+  - DSP Effects (Reverb, Echo, etc.)
+- **Audio Management**
+  - Sound Instances
+  - Audio Groups
+  - Volume Control
+  - Music Transitions
+  - Adaptive Audio
+
+## 10. Multiplayer / Networking
+- **Network Architecture**
+  - Client-Server
+  - Peer-to-Peer
+  - Listen Server
+- **Replication**
+  - State Synchronization
+  - Delta Compression
+  - Prediction & Reconciliation
+- **RPC (Remote Procedure Calls)**
+  - Reliable/Unreliable RPCs
+  - RPC Serialization
+- **Matchmaking**
+  - Lobby System
+  - Server Browser
+  - NAT Traversal
+
+## 11. Visual Effects (VFX)
+- **Particle Systems** (see Rendering)
+- **Decals**
+  - Deferred Decals
+  - Decal Pooling
+- **Trails & Ribbons**
+- **Screen Space Effects**
+  - Screen Shake
+  - Vignette
+  - Chromatic Aberration
+- **Weather Effects**
+  - Rain, Snow
+  - Wind Zones
+  - Volumetric Fog
+
+## 12. User Interface (GUI)
+- **UI Framework**
+  - Canvas System
+  - Layout System (Anchors, Flexbox)
+  - Event System (Click, Hover, Drag)
+- **UI Elements**
+  - Buttons, Sliders, Text Fields
+  - Images, Panels
+  - Scroll Views
+  - Custom Widgets
+- **UI Rendering**
+  - Batched Rendering
+  - Masking & Clipping
+  - Multi-Resolution Support
+
+## 13. Artificial Intelligence (AI)
+- **Pathfinding**
+  - A* / Dijkstra
+  - Navigation Mesh (Navmesh)
+  - Dynamic Obstacles
+  - Path Smoothing
+- **Behavior Trees**
+  - Nodes (Sequence, Selector, etc.)
+  - Decorators & Services
+  - Blackboard
+- **Finite State Machines (FSM)**
+  - States & Transitions
+  - Hierarchical FSM
+- **Steering Behaviors**
+  - Seek, Flee, Pursue, Evade
+  - Flocking
+  - Obstacle Avoidance
+- **Perception System**
+  - Vision
+  - Hearing
+  - Sensing
+
+## 14. Tools & Editor
+- **Level Editor**
+  - Viewport (3D/2D)
+  - Gizmos (Move, Rotate, Scale)
+  - Snap to Grid
+  - Object Placement
+- **Asset Pipeline**
+  - Asset Import
+  - Asset Optimization
+  - Asset Cooking
+  - Build System
+- **Visual Scripting**
+  - Node-Based Editor
+  - Blueprint System
+- **Debugging Tools**
+  - Console Window
+  - Performance Graphs
+  - Entity Inspector
+  - Memory Viewer
+
+## 15. Build & Deployment
+- **Build System**
+  - Multi-Platform Builds
+  - Content Packaging
+  - Code Optimization
+  - Asset Compression
+- **Version Control Integration**
+  - Git / Perforce Support
+- **Continuous Integration**
+  - Automated Testing
+  - Build Automation
