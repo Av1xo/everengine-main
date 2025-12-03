@@ -117,10 +117,11 @@ namespace EverEngine
             }
         );
 
+        std::string shaderDir = "assets/shaders/";
         s_shader = std::make_unique<Shader>(
-            std::unordered_map<unsigned int, const char*>{
-                {GLShaderType::Vertex, "shaders/vertex.vert"},
-                {GLShaderType::Fragment, "shaders/fragment.frag"}
+            std::unordered_map<unsigned int, std::string>{
+                {GLShaderType::Vertex, shaderDir + "vertex.vert"},
+                {GLShaderType::Fragment, shaderDir + "fragment.frag"}
             }
         );
 

@@ -48,6 +48,7 @@ namespace EverEngine
     {
     public:
         Shader(const std::unordered_map<unsigned int, const char*>& sources);
+        Shader(const std::unordered_map<unsigned int, std::string>& sources);
         ~Shader();
 
         Shader(const Shader&) = delete;
@@ -79,7 +80,6 @@ namespace EverEngine
     private:
         unsigned int m_id;
 
-        std::string load_file(const char* path) const;
         unsigned int compile_shader(unsigned int type, const std::string& source) const;
         void check_compile_errors(unsigned int shader, const std::string& type) const;
         void destroy();

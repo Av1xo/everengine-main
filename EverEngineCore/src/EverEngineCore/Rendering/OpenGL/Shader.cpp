@@ -4,6 +4,7 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
+#include "../../Platform/Generic/FileSystem.hpp" 
 
 namespace EverEngine
 {
@@ -11,15 +12,21 @@ namespace EverEngine
         : m_id(0)
     {
         m_id = glCreateProgram();
-
         std::vector<GLuint> shaderIDs;
 
         for (const auto& [type, path] : sources)
         {
-            std::string code = load_file(path);
-            if (code.empty())
+            // Використовуємо FileSystem замість власного load_file
+            if (!FileSystem::File::Exists(path))
             {
                 LOG_ERROR("ERROR::SHADER::FILE_NOT_FOUND: {}", path);
+                continue;
+            }
+
+            std::string code = FileSystem::File::ReadText(path);
+            if (code.empty())
+            {
+                LOG_ERROR("ERROR::SHADER::FILE_EMPTY: {}", path);
                 continue;
             }
 
@@ -52,7 +59,58 @@ namespace EverEngine
             LOG_INFO("Shader program created successfully (ID: {})", m_id);
         }
     }
+    
+    Shader::Shader(const std::unordered_map<GLenum, std::string>& sources)
+        : m_id(0)
+    {
+        m_id = glCreateProgram();
+        std::vector<GLuint> shaderIDs;
 
+        for (const auto& [type, path] : sources)
+        {
+            if (!FileSystem::File::Exists(path))
+            {
+                LOG_ERROR("ERROR::SHADER::FILE_NOT_FOUND: {}", path);
+                continue;
+            }
+
+            std::string code = FileSystem::File::ReadText(path);
+            if (code.empty())
+            {
+                LOG_ERROR("ERROR::SHADER::FILE_EMPTY: {}", path);
+                continue;
+            }
+
+            GLuint shaderID = compile_shader(type, code);
+            if (shaderID != 0)
+            {
+                glAttachShader(m_id, shaderID);
+                shaderIDs.push_back(shaderID);
+            }
+        }
+
+        if (shaderIDs.empty())
+        {
+            LOG_CRIT("ERROR::SHADER::NO_VALID_SHADERS_COMPILED");
+            glDeleteProgram(m_id);
+            m_id = 0;
+            return;
+        }
+
+        glLinkProgram(m_id);
+        check_compile_errors(m_id, "PROGRAM");
+
+        for (GLuint id : shaderIDs)
+        {
+            glDeleteShader(id);
+        }
+
+        if (is_valid())
+        {
+            LOG_INFO("Shader program created successfully (ID: {})", m_id);
+        }
+    }
+    
     Shader::~Shader()
     {
         destroy();
@@ -88,30 +146,6 @@ namespace EverEngine
             m_id = 0;
             m_uniformCache.clear();
         }
-    }
-
-    std::string Shader::load_file(const char* path) const
-    {
-        std::string code;
-        std::ifstream file;
-
-        file.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-
-        try
-        {
-            file.open(path);
-            std::stringstream stream;
-            stream << file.rdbuf();
-            file.close();
-            code = stream.str();
-        }
-        catch(const std::ifstream::failure& e)
-        {
-            LOG_ERROR("ERROR::SHADER::FILE_NOT_SUCCESSFULLY_READ: {}", path);
-            LOG_ERROR("ERROR: {}", e.what());
-        }
-
-        return code;
     }
 
     unsigned int Shader::compile_shader(unsigned int type, const std::string& source) const
