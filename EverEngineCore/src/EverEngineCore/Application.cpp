@@ -1,6 +1,7 @@
 #include "EverEngineCore/Application.hpp"
 #include "EverEngineCore/Log.hpp"
 #include "Window.hpp"
+#include "Rendering/OpenGL/RendererOpenGL.hpp"
 #include "EverEngineCore/Event.hpp"
 
 namespace EverEngine
@@ -19,6 +20,7 @@ namespace EverEngine
     int Application::start(unsigned int window_width, unsigned int window_height, const char* title)
     {
         m_pWindow = std::make_unique<Window>(title, window_width, window_height);
+        m_Renderer = std::make_unique<Renderer>();
 
         m_event_dispatcher.add_event_listener<EventMouseMoved>(
             [](EventMouseMoved& event)

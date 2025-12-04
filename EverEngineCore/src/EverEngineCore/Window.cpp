@@ -6,6 +6,7 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
 
 #include <imgui/imgui.h>
 #include <imgui/backends/imgui_impl_opengl3.h>
@@ -20,8 +21,8 @@ namespace EverEngine
 
     float s_vertices[] = {
         -0.5f, -0.5f, 0.0f,     1.0f, 0.0f, 0.0f,
-            0.5f, -0.5f, 0.0f,     0.5f, 1.0f, 0.0f,
-            0.0f,  0.5f, 0.0f,     0.0f, 0.0f, 1.0f
+        0.5f, -0.5f, 0.0f,     0.5f, 1.0f, 0.0f,
+        0.0f,  0.5f, 0.0f,     0.0f, 0.0f, 1.0f
     };
 
 
@@ -147,8 +148,6 @@ namespace EverEngine
         glClear(GL_COLOR_BUFFER_BIT);
         s_shader->use();
         s_vbo->draw();
-
-        
 #ifdef ENGINE_DEBUG
         ImGuiIO& io = ImGui::GetIO();
         io.DisplaySize.x = static_cast<float>(get_width());

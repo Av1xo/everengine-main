@@ -26,6 +26,7 @@ namespace EverEngine
     
     private:
         std::unique_ptr<class Window> m_pWindow;
+        std::unique_ptr<class Renderer> m_Renderer;
 
         EventDispatcher m_event_dispatcher;
         bool m_bCloseWindow = false;

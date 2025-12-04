@@ -117,3 +117,8 @@ target_link_libraries(ImGui PRIVATE glad glfw)
 target_include_directories(${ENGINE_PROJECT_NAME} PRIVATE ../external)
 target_include_directories(${ENGINE_PROJECT_NAME} PRIVATE ../external/imgui)
 target_link_libraries(${ENGINE_PROJECT_NAME} PRIVATE ImGui)
+
+
+add_subdirectory(../external/glm ${CMAKE_CURRENT_BINARY_DIR}/glm)
+target_link_libraries(${ENGINE_PROJECT_NAME} PRIVATE glm)
+

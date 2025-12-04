@@ -102,6 +102,7 @@ namespace EverEngine
 
         for (GLuint id : shaderIDs)
         {
+            glDetachShader(m_id, id);
             glDeleteShader(id);
         }
 
